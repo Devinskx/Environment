@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for date in date %}
+    <div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>环境因素</th>
+						<th>3：00</th>
+						<th>6：00</th>
+						<th>9：00</th>
+					</tr>
+				</thead>
+                <tbody>
+                    <tr>
+                        <td>temperature</td>
+                        {% for t in date.temperature %}
+                        <td>{{ t }}</td>
+                        {% endfor %}
+					</tr>
+					<tr>
+                        <td>humidity</td>
+                        {% for t in date.humidity %}
+                        <td>{{ t }}</td>
+                        {% endfor %}
+					</tr>
+					<tr>
+                        <td>co2</td>
+                        {% for t in date.co2 %}
+                        <td>{{ t }}</td>
+                        {% endfor %}
+					</tr>
+					<tr>
+                        <td>PM2.5</td>
+                        {% for t in date.pm %}
+                        <td>{{ t }}</td>
+                        {% endfor %}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endfor %}
+
+</body>
+</html>

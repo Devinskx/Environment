@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>灭霸家庭物联网——数据页</title>
+    <link rel="stylesheet" href="node_modules/weatherstar-switch/dist/switch.css" />
+    <script src="node_modules/weatherstar-switch/dist/switch.js"></script>
+    <style type="text/css">
+        table
+        {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+            /*width: 243px;*/
+            width: 365px;
+        }
+        table td, table th
+        {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
+        }
+        table thead th
+        {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+        table tr:nth-child(odd)
+        {
+            background: #fff;
+        }
+        table tr:nth-child(even)
+        {
+            background: #F5FAFA;
+        }
+
+    </style>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div style="float: left">
+    <table id="lefttable">
+        <thead><tr><th>门</th></tr></thead>
+        <thead><tr><th>编号</th><th>状态</th><th>控制</th></tr></thead>
+        {% if dict.door.door_status %}
+            <tr><td>{{ dict.door.door_id }}</td><td>开</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% else %}
+            <tr><td>{{ dict.door.door_id }}</td><td>关</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% endif %}
+        <thead><tr><th>LED</th></tr></thead>
+        <thead><tr><th>编号</th><th>状态</th><th>控制</th></tr></thead>
+        {% if dict.led.led_status %}
+            <tr><td>{{ dict.led.led_id }}</td><td>开</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% else %}
+            <tr><td>{{ dict.led.led_id }}</td><td>关</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% endif %}
+        <thead><tr><th>风扇</th></tr></thead>
+        <thead><tr><th>编号</th><th>状态</th><th>控制</th></tr></thead>
+        {% if dict.blower.blow_status %}
+            <tr><td>{{ dict.blower.blow_id }}</td><td>开</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% else %}
+            <tr><td>{{ dict.blower.blow_id }}</td><td>关</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% endif %}
+        <thead><tr><th>环境数据</th></tr></thead>
+        <thead><tr><th>类别</th><th>数据</th><th>控制</th></tr></thead>
+        {% if dict.environment.e_fire %}
+            <tr><td>火光</td><td>Yes</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% else %}
+            <tr><td>火光</td><td>No</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% endif %}
+        {% if dict.environment.e_infrared %}
+            <tr><td>范围监测（红外线）</td><td>有人</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% else %}
+            <tr><td>范围检测（红外线）</td><td>无人</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% endif %}
+        {% if dict.environment.e_ch4 %}
+            <tr><td>液化气（CH4）</td><td>Yes</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% else %}
+            <tr><td>液化气（CH4）</td><td>No</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% endif %}
+        {% if dict.environment.e_smoke %}
+            <tr><td>烟雾（smoke）</td><td>Yes</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% else %}
+            <tr><td>液烟雾（smoke）</td><td>No</td><td><input type="checkbox" class="checkbox-switch"></td></tr>
+        {% endif %}
+        <tr><td>温度</td><td>{{ dict.environment.e_temperature }}</td><td><input type="text" style="width: 60px;float: left" placeholder="更改报警值"><input type="submit"></td></tr>
+        <tr><td>湿度</td><td>{{ dict.environment.e_humidity }}</td><td><input type="text" style="width: 60px;float: left" placeholder="更改报警值"><input type="submit"></td></tr>
+        <tr><td>二氧化碳</td><td>{{ dict.environment.e_co2 }}</td><td><input type="text" style="width: 60px;float: left" placeholder="更改报警值"><input type="submit"></td></tr>
+        <tr><td>PM2.5</td><td>{{ dict.environment.e_pm }}</td><td><input type="text" style="width: 60px;float: left" placeholder="更改报警值"><input type="submit"></td></tr>
+    </table>
+</div>
+
+<div style="float: left;margin-left: 10px;">
+<table>
+    <thead><tr><th>温度</th></tr></thead>
+    {% for i in table %}
+        <tr><th>时间</th><th>数据</th></tr>
+        <tr><td>{{ i.currenttime }}</td><td>{{ i.h_temperature }}</td></tr>
+    {% endfor %}
+</table>
+</div>
+<div style="float: left;margin-left: 10px;">
+    <table>
+        <thead><tr><th>湿度</th></tr></thead>
+        {% for i in table %}
+            <tr><th>时间</th><th>数据</th></tr>
+            <tr><td>{{ i.currenttime }}</td><td>{{ i.h_humidity }}</td></tr>
+        {% endfor %}
+    </table>
+</div>
+<div style="float: left;margin-left: 10px;">
+    <table>
+        <thead><tr><th>二氧化碳</th></tr></thead>
+        {% for i in table %}
+            <tr><th>时间</th><th>数据</th></tr>
+            <tr><td>{{ i.currenttime }}</td><td>{{ i.h_co2 }}</td></tr>
+        {% endfor %}
+    </table>
+</div>
+<div style="float: left;margin-left: 10px;">
+    <table>
+        <thead><tr><th>PM2.5</th></tr></thead>
+        {% for i in table %}
+            <tr><th>时间</th><th>数据</th></tr>
+            <tr><td>{{ i.currenttime }}</td><td>{{ i.h_pm }}</td></tr>
+        {% endfor %}
+    </table>
+</div>
+<!--<script>
+    $(function(){
+        $.ajax({
+            type:"GET",
+            url:"show.json",
+            dataType:"json",
+            success:function(result){
+                //console.log(result);
+                add(result);
+                //comsole.log(result.blower_id);
+                //let json=JSON.stringify(result);
+                //let jsonCopy=JSON.parse(json);
+                //console.log(jsonCopy);
+                //console.log(jsonCopy.blower_id);
+                //let str=
+            }
+        });
+        function add(result){
+            //let str="";
+
+
+            $.each(result,function(index,obj){
+                $("#lefttable").append("<thead><tr><th>"+"门"+"</th></tr></thead><thead><tr><th>"+"编号"+"</th><th>"+"状态"+"</th></tr></thead><tr><td>"+index+"</td><td>"+obj+"</td></tr><thead><tr><th>"+"LED"+"</th></tr></thead><thead><tr><th>"+"编号"+"</th><th>"+"状态"+"</th></tr></thead><tr><td>"+index+"</td><td>"+obj+"</td></tr><thead><tr><th>"+"风扇"+"</th></tr></thead><thead><tr><th>"+"编号"+"</th><th>"+"状态"+"</th></tr></thead><tr><td>"+index+"</td><td>"+obj+"</td></tr><thead><tr><th>"+"环境数据"+"</th></tr></thead><thead><tr><th>"+"类别"+"</th><th>"+"数据"+"</th></tr></thead><tr><td>"+"湿度"+"</td><td>"+obj+"</td></tr><tr><td>"+"二氧化碳"+"</td><td>"+obj+"</td></tr><tr><td>"+"PM2.5"+"</td><td>"+obj+"</td></tr><tr><td>"+"火光"+"</td><td>"+obj+"</td></tr><tr><td>"+"红外线"+"</td><td>"+obj+"</td></tr><tr><td>"+"甲烷"+"</td><td>"+obj+"</td></tr><tr><td>"+"烟雾"+"</td><td>"+obj+"</td></tr>");
+                //str+="<thead><tr><th>"+"门"+"</th></tr></thead><thead><tr><th>"+"编号"+"</th><th>"+"状态"+"</th></tr></thead><tr><td>"+index.door_id+"</td><td>"+obj.door_status+"</td></tr>";
+                //$("#lefttable").append(str);
+            })
+        }})
+</script>-->
+<script>
+    var el = document.querySelectorAll('.checkbox-switch');
+    let doorSwitch=new Switch(el[0],{size:'small'});
+    let ledSwitch=new Switch(el[1],{size:'small'});
+    let blowerSwitch=new Switch(el[2],{size:'small'});
+    let fireSwitch=new Switch(el[3],{size:'small'});
+    let infraredSwitch=new Switch(el[4],{size:'small'});
+    let ch4Switch=new Switch(el[5],{size:'small'});
+    let smokeSwitch=new Switch(el[6],{size:'small'});
+    $(function () {
+        $.ajax({
+            type:"GET",
+            dataType:"json",
+            url:"show.json",
+            success:function (result) {
+                let json=JSON.stringify(result);
+                let jsonCopy=JSON.parse(json);
+                if(jsonCopy.door_status=="1"){
+                    doorSwitch.on();
+                }
+                if(jsonCopy.led_status=="1"){
+                    ledSwitch.on();
+                }
+                if(jsonCopy.blower_status=="1"){
+                    blowerSwitch.on();
+                }
+                if(jsonCopy.fire_status=="1"){
+                    fireSwitch.on();
+                }
+                if(jsonCopy.infrared_status=="1"){
+                    infraredSwitch.on();
+                }
+                if(jsonCopy.ch4_status=="1"){
+                    ch4Switch.on();
+                }
+                if(jsonCopy.smoke_status=="1"){
+                    smokeSwitch.on();
+                }
+
+            }
+        });
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            url:"",
+
+        })
+    })
+</script>
+</body>
+</html>
